@@ -53,3 +53,9 @@ body{
 .card:hover .front-face {
     transform: rotateY(-180deg);
 }
+
+.content {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
