@@ -5,14 +5,17 @@ while(amountCards<4 || amountCards > 14 || amountCards%2 != 0){
     amountCards = prompt("Digite a quantidade de cartas do jogo (entre 4 e 14):")
 }
 
+
+
+
 for(let i=0; i<amountCards; i++){
     var card = document.createElement("div")
     card.classList.add("card")
     var frontFace = document.createElement("div")
-    frontFace.classList.add("front-face", "face")
-    frontFace.innerText = "Frente"
+    frontFace.classList.add("face")
+    frontFace.innerHTML = `<img src="assets/images/front 1.svg" alt="">`
     var backFace = document.createElement("div")
-    backFace.classList.add("back-face", "face")
+    backFace.classList.add("face")
     backFace.innerText = "Verso"
     card.appendChild(frontFace)
     card.appendChild(backFace)

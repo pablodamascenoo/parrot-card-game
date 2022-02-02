@@ -55,7 +55,16 @@ body{
 }
 
 .content {
+    margin-top: 47px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 34px;
+}
+
+@media(max-width: 335px){
+
+    .title > h1{
+        font-size: 36px;
+    }
 }
