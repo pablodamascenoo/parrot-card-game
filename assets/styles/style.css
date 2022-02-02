@@ -46,11 +46,11 @@ body{
     transform: rotateY(180deg);
 }
 
-.card:hover .back-face {
-    transform: rotateY(0deg);
+.back-face-flip {
+    transform: rotateY(0);
 }
 
-.card:hover .front-face {
+.front-face-flip {
     transform: rotateY(-180deg);
 }
 

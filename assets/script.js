@@ -11,13 +11,22 @@ while(amountCards<4 || amountCards > 14 || amountCards%2 != 0){
 for(let i=0; i<amountCards; i++){
     var card = document.createElement("div")
     card.classList.add("card")
+    card.setAttribute("onclick", "teste(this)")
     var frontFace = document.createElement("div")
-    frontFace.classList.add("face")
+    frontFace.classList.add("face", "front-face")
     frontFace.innerHTML = `<img src="assets/images/front 1.svg" alt="">`
     var backFace = document.createElement("div")
-    backFace.classList.add("face")
+    backFace.classList.add("face", "back-face")
     backFace.innerText = "Verso"
     card.appendChild(frontFace)
     card.appendChild(backFace)
     content.appendChild(card)
+}
+
+
+function flipCard(card){
+
+    card.querySelectorAll(".face")[0].classList.toggle("front-face-flip")
+    card.querySelectorAll(".face")[1].classList.toggle("back-face-flip")
+
 }
