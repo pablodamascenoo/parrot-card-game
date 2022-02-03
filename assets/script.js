@@ -8,8 +8,12 @@ let chosenParrots = []
 
 // Início funções
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function startGame(){
-    
+
     ResetGame()
 
     while(amountCards<4 || amountCards > 14 || amountCards%2 != 0){
@@ -34,25 +38,31 @@ function startGame(){
     }
 }
 
-function flipCard(card){
+async function flipCard(card){
 
-    flips++
 
-    if(pair.length+1 == 2 || pair.length == 0){
-    card.querySelectorAll(".face")[0].classList.toggle("front-face-flip")
-    card.querySelectorAll(".face")[1].classList.toggle("back-face-flip")
-    pair.push(card)
+    if(((pair.length == 0) || (pair.length+1 == 2 && pair[0]!= card))){ //&& (!card.classList.contains("matched"))
+        card.querySelectorAll(".face")[0].classList.toggle("front-face-flip")
+        card.querySelectorAll(".face")[1].classList.toggle("back-face-flip")
+        pair.push(card)
+        flips++
     }
 
-    if(pair.length==2){
+
+    if(pair.length==2 && card==pair[1]){
+
+        pair[0].removeAttribute("onclick")
+        pair[1].removeAttribute("onclick")
+
         if(pair[0].querySelector(".back-face img").alt != pair[1].querySelector(".back-face img").alt){
-            setTimeout(()=>{
-                pair[0].querySelectorAll(".face")[0].classList.toggle("front-face-flip")
-                pair[0].querySelectorAll(".face")[1].classList.toggle("back-face-flip")
-                pair[1].querySelectorAll(".face")[0].classList.toggle("front-face-flip")
-                pair[1].querySelectorAll(".face")[1].classList.toggle("back-face-flip")
-                pair = []
-            },1000)
+            await sleep(1000)
+            pair[0].querySelectorAll(".face")[0].classList.toggle("front-face-flip")
+            pair[0].querySelectorAll(".face")[1].classList.toggle("back-face-flip")
+            pair[0].setAttribute("onclick", "flipCard(this)")
+            pair[1].setAttribute("onclick", "flipCard(this)")
+            pair[1].querySelectorAll(".face")[0].classList.toggle("front-face-flip")
+            pair[1].querySelectorAll(".face")[1].classList.toggle("back-face-flip")
+            pair = []
         }
         else{
             matches++
@@ -66,8 +76,8 @@ function flipCard(card){
             }, 500)
             }
         }
-        
-    }
+    
+}
 
 function shuffleParrots(){
     for(let i=0; i<(amountCards)/2; i++){
@@ -75,6 +85,7 @@ function shuffleParrots(){
         chosenParrots.push(parrots[i])
         }
     }
+    chosenParrots.sort(comparador)
     chosenParrots.sort(comparador)
 }
 
