@@ -1,6 +1,8 @@
 let amountCards = 0
+let first = true
 let matches = 0
 let flips = 0
+let time = 0
 let pair = []
 let content = document.querySelector("section")
 let parrots = ["bobrossparrot", "explodyparrot", "fiestaparrot", "metalparrot", "revertitparrot", "tripletsparrot", "unicornparrot"]
@@ -40,6 +42,9 @@ function startGame(){
 
 async function flipCard(card){
 
+    if (first == true){
+        first = false
+    }
 
     if(((pair.length == 0) || (pair.length+1 == 2 && pair[0]!= card))){ //&& (!card.classList.contains("matched"))
         card.querySelectorAll(".face")[0].classList.toggle("front-face-flip")
@@ -76,7 +81,6 @@ async function flipCard(card){
             }, 500)
             }
         }
-    
 }
 
 function shuffleParrots(){
@@ -85,17 +89,18 @@ function shuffleParrots(){
         chosenParrots.push(parrots[i])
         }
     }
-    chosenParrots.sort(comparador)
-    chosenParrots.sort(comparador)
+    chosenParrots.sort(comparator)
+    chosenParrots.sort(comparator)
 }
 
-function comparador() { 
+function comparator() { 
 	return Math.random() - 0.5
 }
 
 function checkWin(){
     if(matches == amountCards/2){
-        alert(`Você ganhou o jogo em ${flips} jogadas, parabéns!!`)
+        alert(`Você ganhou o jogo em ${flips} jogadas e ${time} segundos. Parabéns!!`)
+        first = true
         return true
     }
     return false
@@ -115,7 +120,14 @@ function ResetGame(){
         chosenParrots = []
     }
 }
+
 // Fim Funções
 
 startGame()
 
+setInterval(()=>{
+    if(first == false){
+        time ++
+        document.querySelector("header p").innerHTML = time
+    }
+}, 1000)
