@@ -114,6 +114,8 @@ function ResetGame(){
         for(let i=0; i<allCards.length; i++){
             allCards[i].remove()
         }
+        time = 0
+        document.querySelector("header p").innerHTML = time
         amountCards = 0
         matches = 0
         flips = 0
