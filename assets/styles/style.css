@@ -46,6 +46,10 @@ body{
     transform: rotateY(180deg);
 }
 
+.back-face > img {
+    width: 80%;
+}
+
 .back-face-flip {
     transform: rotateY(0);
 }
