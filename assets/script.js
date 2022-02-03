@@ -1,6 +1,8 @@
 let amountCards = 0
 let matches = 0
+let flips = 0
 let pair = []
+let newGame = false
 let content = document.querySelector("section")
 let parrots = ["bobrossparrot", "explodyparrot", "fiestaparrot", "metalparrot", "revertitparrot", "tripletsparrot", "unicornparrot"]
 let chosenParrots = []
@@ -26,20 +28,9 @@ for(let i=0; i<amountCards; i++){
     content.appendChild(card)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function flipCard(card){
+
+    flips++
 
     if(pair.length+1 == 2 || pair.length == 0){
     card.querySelectorAll(".face")[0].classList.toggle("front-face-flip")
@@ -77,4 +68,12 @@ function shuffleParrots(){
 
 function comparador() { 
 	return Math.random() - 0.5
+}
+
+function checkWin(){
+    if(matches == amountCards/2){
+        alert(`Você ganhou o jogo com ${flips} jogadas`)
+        return true
+    }
+    return false
 }
