@@ -2,30 +2,36 @@ let amountCards = 0
 let matches = 0
 let flips = 0
 let pair = []
-let newGame = false
 let content = document.querySelector("section")
 let parrots = ["bobrossparrot", "explodyparrot", "fiestaparrot", "metalparrot", "revertitparrot", "tripletsparrot", "unicornparrot"]
 let chosenParrots = []
 
-while(amountCards<4 || amountCards > 14 || amountCards%2 != 0){
-    amountCards = prompt("Digite a quantidade de cartas do jogo (entre 4 e 14):")
-}
+// Início funções
 
-shuffleParrots()
+function startGame(){
+    
+    ResetGame()
 
-for(let i=0; i<amountCards; i++){
-    var card = document.createElement("div")
-    card.classList.add("card")
-    card.setAttribute("onclick", "flipCard(this)")
-    var frontFace = document.createElement("div")
-    frontFace.classList.add("face", "front-face")
-    frontFace.innerHTML = `<img src="assets/images/front 1.svg" alt="flipped-card">`
-    var backFace = document.createElement("div")
-    backFace.classList.add("face", "back-face")
-    backFace.innerHTML = `<img src="assets/gifs/${chosenParrots[i]}.gif" alt="${chosenParrots[i]}">`
-    card.appendChild(frontFace)
-    card.appendChild(backFace)
-    content.appendChild(card)
+    while(amountCards<4 || amountCards > 14 || amountCards%2 != 0){
+        amountCards = prompt("Digite a quantidade de cartas do jogo (entre 4 e 14):")
+    }
+
+    shuffleParrots()
+
+    for(let i=0; i<amountCards; i++){
+        var card = document.createElement("div")
+        card.classList.add("card")
+        card.setAttribute("onclick", "flipCard(this)")
+        var frontFace = document.createElement("div")
+        frontFace.classList.add("face", "front-face")
+        frontFace.innerHTML = `<img src="assets/images/front 1.svg" alt="flipped-card">`
+        var backFace = document.createElement("div")
+        backFace.classList.add("face", "back-face")
+        backFace.innerHTML = `<img src="assets/gifs/${chosenParrots[i]}.gif" alt="${chosenParrots[i]}">`
+        card.appendChild(frontFace)
+        card.appendChild(backFace)
+        content.appendChild(card)
+    }
 }
 
 function flipCard(card){
@@ -51,11 +57,17 @@ function flipCard(card){
         else{
             matches++
             pair = []
+            setTimeout(()=>{
+                if(checkWin()){
+                if(prompt("Você quer começar um novo jogo? (digite 'y' se sim)") == "y"){
+                    startGame()
+                }
+                }
+            }, 500)
+            }
         }
         
     }
-
-}
 
 function shuffleParrots(){
     for(let i=0; i<(amountCards)/2; i++){
@@ -72,8 +84,27 @@ function comparador() {
 
 function checkWin(){
     if(matches == amountCards/2){
-        alert(`Você ganhou o jogo com ${flips} jogadas`)
+        alert(`Você ganhou o jogo em ${flips} jogadas, parabéns!!`)
         return true
     }
     return false
 }
+
+function ResetGame(){
+
+    let allCards = document.querySelectorAll(".card")
+
+    if(allCards!=null){
+        for(let i=0; i<allCards.length; i++){
+            allCards[i].remove()
+        }
+        amountCards = 0
+        matches = 0
+        flips = 0
+        chosenParrots = []
+    }
+}
+// Fim Funções
+
+startGame()
+
