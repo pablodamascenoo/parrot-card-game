@@ -77,9 +77,13 @@ async function flipCard(card){
             pair = []
             setTimeout(()=>{
                 if(checkWin()){
-                if(prompt("Você quer começar um novo jogo? (digite 'y' se sim)") == "y"){
-                    startGame()
-                }
+                    let newGame = prompt("Você quer começar um novo jogo? (s/sim para continuar)")
+                    if ( newGame != null && (newGame.toUpperCase() == "SIM" || newGame.toUpperCase() == "S")){
+                        startGame()
+                    }
+                    else {
+                        alert("Reinicie a página se quiser jogar novamente!")
+                    }
                 }
             }, 500)
             }
