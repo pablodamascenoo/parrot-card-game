@@ -50,19 +50,19 @@ header h1{
     transform-style: preserve-3d;
 }
 
-.back-face {
+.front-face {
     transform: rotateY(180deg);
 }
 
-.back-face > img {
+.front-face > img {
     width: 80%;
 }
 
-.back-face-flip {
+.front-face-flip {
     transform: rotateY(0);
 }
 
-.front-face-flip {
+.back-face-flip {
     transform: rotateY(-180deg);
 }
 

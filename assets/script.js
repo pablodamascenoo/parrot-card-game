@@ -28,12 +28,15 @@ function startGame(){
         var card = document.createElement("div")
         card.classList.add("card")
         card.setAttribute("onclick", "flipCard(this)")
+        card.setAttribute("data-identifier", "card")
         var frontFace = document.createElement("div")
         frontFace.classList.add("face", "front-face")
-        frontFace.innerHTML = `<img src="assets/images/front 1.svg" alt="flipped-card">`
+        frontFace.setAttribute("data-identifier", "front-face")
+        frontFace.innerHTML = `<img src="assets/gifs/${chosenParrots[i]}.gif" alt="${chosenParrots[i]}">`
         var backFace = document.createElement("div")
         backFace.classList.add("face", "back-face")
-        backFace.innerHTML = `<img src="assets/gifs/${chosenParrots[i]}.gif" alt="${chosenParrots[i]}">`
+        backFace.setAttribute("data-identifier", "back-face")
+        backFace.innerHTML = `<img src="assets/images/front 1.svg" alt="flipped-card">`
         card.appendChild(frontFace)
         card.appendChild(backFace)
         content.appendChild(card)
@@ -59,7 +62,7 @@ async function flipCard(card){
         pair[0].removeAttribute("onclick")
         pair[1].removeAttribute("onclick")
 
-        if(pair[0].querySelector(".back-face img").alt != pair[1].querySelector(".back-face img").alt){
+        if(pair[0].querySelector(".front-face img").alt != pair[1].querySelector(".front-face img").alt){
             await sleep(1000)
             pair[0].querySelectorAll(".face")[0].classList.toggle("front-face-flip")
             pair[0].querySelectorAll(".face")[1].classList.toggle("back-face-flip")
